@@ -4,7 +4,7 @@
   <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
-  <title>Shanpeng's Short URL</title>
+  <title>Shanpeng's Shork URL</title>
   <meta name="description" content="简单免费搭建属于你自己的无服务器短链接平台">
   <style>
     * {
@@ -72,19 +72,19 @@
   <div class="card">
     <h5 class="card-header">Pony短链</h5>
     <div class="card-body">
-      <form onsubmit="return shorturl()">
-        <h5 class="card-title">输入你的长链接：</h5>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="示例: https://example.com/path?key=urlEncodedValue" id="text">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit" id="searchbtn">缩短</button>
-          </div>
+      <form>
+      <h5 class="card-title">输入你的长链接：</h5>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="示例: https://example.com/path?key=urlEncodedValue" id="text">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit" onclick='shorturl()' id="searchbtn">缩短</button>
         </div>
-        <p id="notice">###DEMO_NOTICE###</p>
-        <p>
-          <input id="key" type="text" style="background-color:transparent;border:0;" placeholder="自定义短链 (可选)" />
-          <input id="password" type="password" style="background-color:transparent;border:0;" placeholder="管理员密码 (可选)" />
-        </p>
+      </div>   
+      <p id="notice">###DEMO_NOTICE###</p>             
+      <p>
+      <input id="key" type="text" style="background-color:transparent;border:0;" />
+      <input id="password" type="password" style="background-color:transparent;border:0;" />
+      </p>
       </form>
     </div>
   </div>
@@ -110,39 +110,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js" integrity="sha256-cpbDsuAF6YYKGsywuE65CvzsMKN6x4m6733ZnT3QHHE=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/###GITHUB_REPO######GITHUB_VERSION###/main.min.js" crossorigin="anonymous"></script>
-  <script>
-    async function shorturl() {
-      const url = document.getElementById('text').value;
-      const key = document.getElementById('key').value;
-      const password = document.getElementById('password').value;
-
-      const hash = password ? await md5(url + password) : '';
-
-      const response = await fetch(window.location.href, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: JSON.stringify({ url, key, hash })
-      });
-
-      const result = await response.json();
-      document.getElementById('result').innerText = result.key;
-      $('#exampleModal').modal('show');
-
-      return false;
-    }
-
-    function copyurl(elementId) {
-      const copyText = document.getElementById(elementId).innerText;
-      const textarea = document.createElement('textarea');
-      textarea.value = copyText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-    }
-  </script>
 </body>
 </html>
